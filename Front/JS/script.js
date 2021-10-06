@@ -2,14 +2,15 @@
 const urlCameras = "http://localhost:3000/api/cameras";
 
 
-    // fonction qui affichera la liste des produits
+    // fonction qui intègre la liste des produits
+    //contenu dans l'API sur la page index
     function listProduct(elementArray) {
         
         for(let i of elementArray){
            
         let infoProduct = document.querySelector('.card-info');
             
-        let div = document.createElement('div');// création d'un div 
+        let div = document.createElement('div'); 
         div.className = "col-12 col-md-4 col-xl-3";
         const divContent=`
         <div class="card mt-5"><a href=product.html?${i._id} class="stretched-link">
@@ -20,21 +21,21 @@ const urlCameras = "http://localhost:3000/api/cameras";
         <button type="button" class="btn btn-dark">Voir le produit</button>
         </div>
         </div>`;
-        div.innerHTML=divContent;// integration de la div dans le html
+        div.innerHTML=divContent;
         infoProduct.appendChild(div);
 
         }
     }
   
-// Appel de l'API
+// Appel de l'API qui affiche la fonction listProduct
     function getApi(url) {
         fetch(url)
-        .then(function(res){ // test de la promise
+        .then(function(res){ 
             if(res.ok){ 
                 return res.json();
             }
         })
-        .then(function(x){ // appel de la fonction affichage des produits
+        .then(function(x){ 
             listProduct(x);
         })
         
