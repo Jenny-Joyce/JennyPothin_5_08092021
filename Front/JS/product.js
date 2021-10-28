@@ -18,9 +18,8 @@ function addBasket(){
     const inputNumber = document.querySelector('#amount');
     const imgProduct = document.querySelector('#img').src;
     const descProduct = document.querySelector('#description').textContent;
-    console.log(descProduct.textContent);
     let opt = elementSelect.options[elementSelect.selectedIndex].value;
-    const toAdd = imgProduct +"#" + descProduct +"#" + opt + "#" + priceProduct.innerHTML + "#" + inputNumber.value;
+    const toAdd = imgProduct + "#" + descProduct  + "#" + priceProduct.innerHTML + "#" + inputNumber.value;
     const basket = localStorage.getItem(spanId.innerHTML);
     console.log(spanId);
     // controle du choix de l'option
