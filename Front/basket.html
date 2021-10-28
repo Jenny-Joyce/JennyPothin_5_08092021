@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/9fa50e590a.js" crossorigin="anonymous"></script>
 
+
     <title>Orinoco</title>
 </head>
 <body>
@@ -32,41 +33,44 @@
     <main>
         <section class="container">
             <div class="row mt-5">
-                <div class="col mb-5">
-                    <h1>Récapitulatif</h1>
-                </div>
+                <div class="col mb-5" id="details_basket"></div>
             </div>
         </section>
-        <section class="info-basket container">
+            <div>
+                <input type="button" value="Vider le panier" id="clear_basket" class="p-2 btn btn-dark">
+            </div>
+       
+        
+        <section class="container" id="info_registration">
             <div class="row">
                 <div class="col">
                     <h1>Vos coordonnées</h1>
                 </div>
             </div>
-            <form class="row">
-                <div class="col-md-6">
+            <form class="row" id="form" name="form">
+                <div class="form-group col-md-6">
                     <label for="firstname" class="form-label">Prénom</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="Saississez votre prénom" required>
+                    <input type="text" class="form-control" name ="firstname" id="firstname" minlength="2" placeholder="Saississez votre prénom" required>
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-6">
                     <label for="lastname" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="lastname" placeholder="Saississez votre nom" required>
+                    <input type="text" class="form-control" name="lastname" id="lastname" minlength="2" style="text-transform: uppercase;" placeholder="Saississez votre nom" required>
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Saississez votre adresse mail" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="test@xyz.com" required>
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-6">
                     <label for="address" class="form-label">Adresse</label>
-                    <input type="text" class="form-control" id="address" placeholder="Saississez votre adresse" required>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Saississez votre adresse" required>
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-6">
                     <label for="city" class="form-label">Ville</label>
-                    <input type="text" class="form-control" id="city" placeholder="Saississez le nom de votre ville" required>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Saississez le nom de votre ville" required>
                 </div>
-                <div class="col-md-4">
+                <div class="form-group col-md-4">
                     <label for="code" class="form-label">Code Postal</label>
-                    <input type="text" class="form-control" id="code" placeholder="Saississez votre code postal" required>
+                    <input type="text" class="form-control" name="code" id="code" placeholder="Saississez votre code postal" pattern="[0-9]+" required>
                 </div>
                 <div class="col-md-6 mt-5">
                     <button type="submit" class="btn btn-dark">Valider ma commande</button>
