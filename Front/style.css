@@ -21,3 +21,9 @@
 .back-home-page{
     text-align: center;
 }
+@media screen and (max-width: 320px) {
+    #my_table tr td:nth-child(2),
+    #my_table th:nth-child(2){
+        display: none;
+    }
+}
