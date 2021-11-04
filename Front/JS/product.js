@@ -83,7 +83,7 @@ function displayCamera(camera){
 // appel de l'API avec l'id produit
 function idApi(url){
     fetch(url)
-    .then(function (res){
+    .then(function(res){
         if(res.ok){
             return res.json();
         }
