@@ -3,7 +3,7 @@ let productDetails = [];
 let listProducts = "";
 let linePrice = 0;
 let totalPrice = 0;
-const productList = {};
+const productList = [];
 const contact = {};
 
 
@@ -29,13 +29,15 @@ function addProductRow(rowToCreate, index) {
 function deleteProductRow(index){
     localStorage.removeItem(localStorage.key(index));
 }
-
+localStorage.removeItem("orderId")
 // boucle qui parcourt, récupère et affiche les données du localstorage
 for(let i = 0; i < localStorage.length; i++){
     product = localStorage.getItem(localStorage.key(i));
     productDetails = product.split("#");
     addProductRow(productDetails, i);
-    productList[localStorage.key(i)];
+    productList.push(localStorage.key(i));
+
+    
 }
 
 
@@ -78,29 +80,39 @@ btnClear.addEventListener('click', () => {
 // fonction qui check la validité de l'email
 function checkInputEmail(email) {
     const regexEmail = new RegExp('^[a-zA-z0-9.-_]+[@]{1}[a-z]+[.]{1}[a-z]{2,4}$', 'g');
-    // return regexEmail.test(email);
-    return true;
+    return regexEmail.test(email);
+    
 }
 
 function checkInputTextOnly(textOnly) {
     const regexTextOnly = new RegExp('[a-zA-Z-]+', 'g');
     return regexTextOnly.test(textOnly);
+    
 }
 function checkInputText(text) {
     const regexText = new RegExp('[a-zA-Z0-9-]+', 'g');
     return regexText.test(text);
+   
 }
 
-const inputFirstName = document.querySelector('#firstname');
-const inputLastName = document.querySelector('#lastname');
-const inputEmail = document.querySelector('#email');
-const inputAddress = document.querySelector('#address');
-const inputCity = document.querySelector('#city');
 
+/*
+on vérifie les données du formulaire avant l'envoi au backend
+-1 : email invalidé;
+-2 : prénom invalidé;
+-3 : nom invalidé;
+-4 : adresse invalidé;
+-5 : ville invalidé;
+*/ 
 const formSubmit = document.querySelector('#form');
 
 formSubmit.addEventListener('submit', (e) =>{
-    
+const inputFirstName = document.getElementById('firstName').value;
+const inputLastName = document.querySelector('#lastName').value;
+const inputEmail = document.querySelector('#email').value;
+const inputAddress = document.querySelector('#address').value;
+const inputCity = document.querySelector('#city').value;
+
     if(!checkInputEmail(inputEmail)) {
         e.preventDefault();
         alert('Email invalide');
@@ -133,26 +145,39 @@ formSubmit.addEventListener('submit', (e) =>{
     for(let i = 0; i < 5; i++){
         contact[formValid[i].id] = formValid[i].value;
     }
-    console.log(contact);
     e.preventDefault();
+    validOrder();
 });
 
-const finalObject = {contact, productList};
+console.log(contact);
 
-fetch("http://127.0.0.1:3000/api/cameras/order", {
+function validOrder (){
+// objet avec les données contact et les éléments du panier
+const finalObject = {
+    contact: contact, 
+    products: productList
+    };
+    console.log(finalObject);
+    // envoie les données au backend
+    fetch("http://localhost:3000/api/cameras/order", {
             method:"POST",
             headers:{
                 'Accept': 'application/json', 
                 'Content-Type':'application/json'
             },
             body:JSON.stringify(finalObject)
+           
         })
-        .then(rawJSON=>rawJSON.json())
-        .then(json=> {
+        .then(rawJSON => rawJSON.json())
+        .then(json => {
             console.log("RESPONSE",json);
-            localStorage.setItem("orderId",JSON.stringify(json));
-            // window.location.href="./confirmation.html";
-            console.log(JSON.stringify(json));
+            let order = JSON.stringify(json)
+            localStorage.setItem("orderId", order);
+            window.location.href="./confirmation.html";
+            console.log(window.location);
 
-        }).catch(err=> console.log(err));
+        })
+        .catch(err=> console.log(err));
 
+        console.log(productList);
+}
