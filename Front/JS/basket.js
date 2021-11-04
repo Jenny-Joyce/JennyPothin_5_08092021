@@ -36,10 +36,7 @@ for(let i = 0; i < localStorage.length; i++){
     productDetails = product.split("#");
     addProductRow(productDetails, i);
     productList.push(localStorage.key(i));
-
-    
 }
-
 
 let recapBasket = document.querySelector('#details_basket');
 recapBasket.innerHTML = `
@@ -83,12 +80,13 @@ function checkInputEmail(email) {
     return regexEmail.test(email);
     
 }
-
+// fonction qui check la validité des inputs sans chiffres(ex : nom de famille, ville)
 function checkInputTextOnly(textOnly) {
     const regexTextOnly = new RegExp('[a-zA-Z-]+', 'g');
     return regexTextOnly.test(textOnly);
     
 }
+// fonction qui check la validité des inputs avec chiffres(ex: adresse, code postal)
 function checkInputText(text) {
     const regexText = new RegExp('[a-zA-Z0-9-]+', 'g');
     return regexText.test(text);
@@ -118,7 +116,7 @@ const inputCity = document.querySelector('#city').value;
         alert('Email invalide');
         return -1;
     }
-    if(!checkInputTextOnly(inputFirstName)){
+    if(!checkInputText(inputFirstName)){
         e.preventDefault();
         alert('Prénom invalide');
         return -2;
@@ -151,21 +149,21 @@ const inputCity = document.querySelector('#city').value;
 
 console.log(contact);
 
+//fonction qui lors de la validation du formulaire, envoie au backend les éléments du panier et les données du contact
 function validOrder (){
-// objet avec les données contact et les éléments du panier
 const finalObject = {
     contact: contact, 
     products: productList
     };
     console.log(finalObject);
-    // envoie les données au backend
+    
     fetch("http://localhost:3000/api/cameras/order", {
-            method:"POST",
-            headers:{
-                'Accept': 'application/json', 
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(finalObject)
+        method:"POST",
+        headers:{
+            'Accept': 'application/json', 
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(finalObject)
            
         })
         .then(rawJSON => rawJSON.json())
