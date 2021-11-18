@@ -21,6 +21,10 @@
 .back_home_page{
     text-align: center;
 }
+.confirm{
+    border: 3px solid black;
+    margin-top: 30px;
+}
 @media screen and (max-width: 320px) {
     #my_table tr td:nth-child(2),
     #my_table th:nth-child(2){
