@@ -36,13 +36,11 @@ function addBasket(){
     if(basket != ""){
         localStorage.removeItem(spanId.innerHTML);
         localStorage.setItem(spanId.innerHTML, toAdd);
-        console.log(localStorage.getItem(spanId.innerHTML) + ",le panier contient maintenant" + localStorage.length);
         return -3;
     }
     // si tous les tests sont ok, on ajout l'article dans le panier
     localStorage.setItem(spanId.innerHTML, toAdd);
     alert('Le produit à été ajouter au panier');
-    console.log(localStorage.getItem(spanId.innerHTML) + ",le panier contient maintenant" + localStorage.length);
     return 0;
 }
 
@@ -68,8 +66,8 @@ function displayCamera(camera){
     </div>`;
 
         let listOption = '<option selected value="-1">Selectionner un objectif</option>';
-        // boucle qui affiche la liste des options
-        // pour les objectifs
+        /*boucle qui affiche la liste des options
+         pour les objectifs */
         for(let i in camera.lenses){ 
             const optionLense = `<option value="${camera.lenses[i]}">${camera.lenses[i]}</option>`
             listOption += optionLense;
@@ -80,7 +78,8 @@ function displayCamera(camera){
         const buttonBasket = document.querySelector('#add_basket');
         buttonBasket.addEventListener('click', addBasket);
 }
-// appel de l'API avec l'id produit
+/* appel de l'API avec l'id produit
+renvoie un booleen true ou false*/
 function idApi(url){
     fetch(url)
     .then(function(res){
@@ -90,9 +89,11 @@ function idApi(url){
     })
     .then(function(value){
         displayCamera(value);
+        return true;
     })
     .catch(function(err){
         console.log(err);
+        return false;
     })
 }
 idApi(cameraUrl)

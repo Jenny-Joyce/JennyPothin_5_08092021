@@ -2,8 +2,10 @@
 const urlCameras = "http://localhost:3000/api/cameras";
 
 
-    // fonction qui intègre la liste des produits
-    //contenu dans l'API sur la page index
+    /* fonction qui intègre certaines caractéristiques 
+    des listes des produits contenu dans l'API, dans une carte 
+     qui sera intégrer à la page index.
+    */
     function listProduct(elementArray) {
         
         for(let i of elementArray){
@@ -27,7 +29,9 @@ const urlCameras = "http://localhost:3000/api/cameras";
         }
     }
   
-// Appel de l'API qui affiche la fonction listProduct
+/* Appel de l'API qui affiche la fonction listProduct.
+Renvoie un booléen true ou false. 
+*/
     function getApi(url) {
         fetch(url)
         .then(function(res){ 
@@ -37,10 +41,12 @@ const urlCameras = "http://localhost:3000/api/cameras";
         })
         .then(function(x){ 
             listProduct(x);
+            return true;
         })
         
         .catch(function(err){
             console.log("Une erreur est survenue");
+            return false;
         })
         
     }
